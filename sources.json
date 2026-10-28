@@ -73,5 +73,11 @@
     "id": "15",
     "name": "CNFANS 9000+",
     "url": "https://docs.google.com/spreadsheets/d/15apb2uDYdpcLnThgcbe2QaQHWVY6KLPsCIZy9KtpOoI/edit"
+  },
+  {
+    "id": "trellox",
+    "name": "Trellox",
+    "url": "https://trellox.de/",
+    "type": "trellox"
   }
 ]
