@@ -9,3 +9,7 @@ assert.equal(M.category('Gucci Leather Loafer').sub,'Loafer');assert.equal(M.cat
 assert.equal(M.category('New Balance Hoodie').main,'Bekleidung');assert.equal(M.category('Rolex Uhrenbox').main,'Accessoires');
 assert.equal(M.build([a,{...a,name:'EUR 43.60',url:'https://weidian.com/item.html?itemID=999'}],[]).length,1);
 console.log('PASS: product identity, cross-source deduplication, price offers, image preference, categories');
+
+assert.equal(M.sellerUrl('https://litbuy.com/product/weidian/123?inviteCode=A'),'https://weidian.com/item.html?itemID=123');
+const nested='https://item.taobao.com/item.htm?id=456&skuId=789';assert.equal(M.sellerUrl('https://www.pikobuy.com/product/detail?productUrl='+encodeURIComponent(nested)),nested);
+assert.equal(M.build([{name:'Shoe',url:nested},{name:'Golden Goose GGS',url:nested}],[])[0].mine,true);
