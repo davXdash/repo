@@ -38,6 +38,7 @@ def embedded_images(z,sheet_path,out):
  return result
 
 def product_name(v):
+ if isinstance(v,str) and re.fullmatch(r'\s*(?:(?:EUR|USD|CNY|RMB|GBP)\s*)?[\d\s.,€$¥￥£|/–-]+(?:\s*(?:EUR|USD|CNY|RMB|GBP))?\s*',v,re.I):return False
  return isinstance(v,str) and 2<len(v.strip())<240 and not v.startswith('=') and not url_ok(v) and not LINK_LABEL.match(v.strip()) and re.search(r'[A-Za-zÀ-ÿ]',v) and not re.fullmatch(r'[\d\s.,€$¥￥£|/–-]+',v)
 def number_value(text):
  text=str(text).strip()
@@ -162,7 +163,7 @@ def parse_html_sheet(html,source,gid):
  for linkcell in origins:
   if not linkcell['links']:continue
   rr=linkcell['row'];cc=linkcell['col']
-  left=[grid.get((rr,col)) for col in range(max(0,cc-4),cc)]
+  left=[grid.get((rr,col)) for col in range(max(0,cc-8),cc)]
   names=[c for c in left if c and product_name(c['text'].strip())]
   if not names:counts['unmatched_links']+=len(linkcell['links']);continue
   nc=names[-1];name=re.sub(r'\s+',' ',nc['text']).strip();near=[]
