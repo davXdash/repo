@@ -14,7 +14,8 @@
     "3fdba35f04dc8c462986.json",
     "e629fa6598d732768f7c.json",
     "3e444dadd7d356854dc8.json",
-    "3b7cc32e9e99cbee5f53.json"
+    "3b7cc32e9e99cbee5f53.json",
+    "f136a592c86e26f3cb8e.json"
   ],
   "reports": [
     {
@@ -227,8 +228,15 @@
     {
       "source": "ASMRHauler Webseite",
       "id": "asmr-web",
-      "status": "blocked",
-      "reason": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>"
+      "status": "ok",
+      "products": 5824,
+      "source_items": 5824,
+      "unmatched_links": 0,
+      "missing_prices": 0,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "cached_images": 5683,
+      "uncached_images": 141
     }
   ],
   "rates": {
@@ -265,5 +273,5 @@
       "ZAR": 18.5339
     }
   },
-  "updated": "2026-10-28T15:32:39.451510+00:00"
+  "updated": "2026-10-28T15:43:44.330871+00:00"
 }
