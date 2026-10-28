@@ -12,7 +12,8 @@
     "6b51d431df5d7f141cbe.json",
     "8527a891e224136950ff.json",
     "3fdba35f04dc8c462986.json",
-    "e629fa6598d732768f7c.json"
+    "e629fa6598d732768f7c.json",
+    "3e444dadd7d356854dc8.json"
   ],
   "reports": [
     {
@@ -195,6 +196,19 @@
       "sheets_failed": 0,
       "cached_images": 4040,
       "uncached_images": 4
+    },
+    {
+      "source": "Trellox",
+      "id": "trellox",
+      "status": "ok",
+      "products": 6553,
+      "unmatched_links": 16,
+      "missing_prices": 155,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "source_items": 6301,
+      "cached_images": 6549,
+      "uncached_images": 4
     }
   ],
   "rates": {
@@ -231,5 +245,5 @@
       "ZAR": 18.5633
     }
   },
-  "updated": "2026-10-28T12:46:03.200832+00:00"
+  "updated": "2026-10-28T13:23:17.710831+00:00"
 }
