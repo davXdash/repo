@@ -184,12 +184,15 @@ def parse_html_sheet(html,source,gid):
    if not image:counts['missing_images']+=1
  return products,counts
 
-def parse_readable(source):
+def parse_readable(source,out=None):
  match=re.search(r'/spreadsheets/d/([A-Za-z0-9_-]+)',source['url']);base='https://docs.google.com/spreadsheets/d/'+match[1]
  page=fetch_text(base+'/htmlview');gids=list(dict.fromkeys(re.findall(r'gid=(\d+)',page)))
  if not gids:raise ValueError('Google liefert keine lesbaren Tabellenblätter')
  products=[];counts={'unmatched_links':0,'missing_prices':0,'missing_images':0,'conflicting_prices':0,'sheets_failed':0};seen=set()
- def one(gid):return parse_html_sheet(fetch_text(base+'/htmlview/sheet?headers=true&gid='+gid),source,gid)
+ def one(gid):
+  products,report=parse_html_sheet(fetch_text(base+'/htmlview/sheet?headers=true&gid='+gid),source,gid)
+  if out is not None:cache_products(products,out)
+  return products,report
  with ThreadPoolExecutor(max_workers=4) as executor:
   jobs={executor.submit(one,gid):gid for gid in gids[:80]}
   for job in as_completed(jobs):
@@ -228,7 +231,7 @@ def main():
      match=re.search(r'/spreadsheets/d/([A-Za-z0-9_-]+)',source['url'])
      if not match:raise ValueError('Kein gültiger Google-Sheets-Link')
      try:
-      products,counts=parse_readable(source)
+      products,counts=parse_readable(source,out)
       if not products:raise ValueError('Keine Produktzeilen in lesbarer Ansicht')
      except Exception:
       print(source['name']+': versuche XLSX-Import',flush=True)
