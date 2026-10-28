@@ -42,7 +42,7 @@ async function openCollection(savedMaterial){button.disabled=true;status.textCon
    }
   }catch {window.findsCatalog.importReports=[{source:'Skriptimporte',status:'blocked',reason:'Zusätzliche Importe gerade nicht erreichbar; bisherige Sammlung geladen.'}]}
 
-  const script=document.createElement('script');script.src='app.js?v=gallery4';
+  const script=document.createElement('script');script.src='app.js?v=gallery5';
   await new Promise((resolve,reject)=>{script.onload=resolve;script.onerror=reject;document.body.append(script)});
   if(!savedMaterial&&document.querySelector('#remember-device').checked){try{await deviceKey('put',material)}catch{status.textContent='Dieses Gerät konnte nicht gespeichert werden.'}}
   document.querySelector('#password').value='';document.querySelector('#gate').hidden=true;document.querySelector('#catalog').hidden=false;document.body.classList.remove('locked');document.querySelector('#query').focus();
