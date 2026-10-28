@@ -90,7 +90,7 @@ def parse_xlsx(path,source,out):
      counts['unmatched_links']+=1;continue
     namecell=candidates[-1];name=re.sub(r'\s+',' ',namecell.value).strip()
     # Image and price candidates stay within this product's block.
-    block=[c for c in row if namecell.column<=c.column<min(right,link.column+5)]
+    block=[c for c in row if namecell.column<=c.column<min(right,link.column+10)]
     pcells=[namecell]+[c for c in block if c is not namecell and c is not link]
     amount,currency,raw=price_of(pcells,cache,headers)
     image=''
@@ -98,7 +98,7 @@ def parse_xlsx(path,source,out):
      im=re.match(r'=IMAGE\(\s*"(https?://[^"]+)"',str(c.value or ''),re.I)
      if im:image=im[1];break
     if not image:
-     im=next((im for (rr,cc),im in images.items() if rowno<=rr<=rowno+1 and max(1,namecell.column-1)<=cc<min(right,link.column+5)),None);image=im or ''
+     im=next((im for (rr,cc),im in images.items() if rowno<=rr<=rowno+1 and max(1,namecell.column-1)<=cc<min(right,link.column+10)),None);image=im or ''
     euro=amount if currency=='EUR' else None
     record=dict(id=hashlib.sha256((source['id']+url).encode()).hexdigest()[:20],name=name,brand='Sonstige',euro=euro,amount=amount,currency=currency,raw=raw or 'Preis fehlt',image=image,url=url,source=source['id'],location=s.title+'!'+namecell.coordinate,checked=now,status='Importiert · Produktseite nicht geprüft')
     key=(url,name)
@@ -167,7 +167,7 @@ def parse_html_sheet(html,source,gid):
   names=[c for c in left if c and product_name(c['text'].strip())]
   if not names:counts['unmatched_links']+=len(linkcell['links']);continue
   nc=names[-1];name=re.sub(r'\s+',' ',nc['text']).strip();near=[]
-  for col in range(max(0,nc['col']-1),cc+4):
+  for col in range(max(0,nc['col']-1),cc+10):
    c=grid.get((rr,col))
    if c and col>cc and product_name(c['text'].strip()):break
    if c and id(c) not in [id(x) for x in near]:near.append(c)
@@ -175,7 +175,7 @@ def parse_html_sheet(html,source,gid):
   cells=[SimpleNamespace(value=c['text'].strip(),coordinate=str(i),number_format='',column=c['col']) for i,c in enumerate(prices)]
   amount,currency,raw=price_of(cells,{},{});image=next((im for c in near for im in c['images']),'')
   if not image:
-   image=next((im for col in range(nc['col'],cc+4) for c in [grid.get((rr+1,col))] if c for im in c['images']),'')
+   image=next((im for col in range(max(0,nc['col']-1),cc+10) for c in [grid.get((rr+1,col))] if c for im in c['images']),'')
   for url in linkcell['links']:
    key=(url,name)
    if key in seen:continue
