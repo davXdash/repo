@@ -129,7 +129,7 @@ class GridHTML(HTMLParser):
   if tag in ('td','th'):
    if tag=='th':self.cell=None;return
    while (self.row,self.col) in self.grid:self.col+=1
-   self.cell={'text':'','links':[],'images':[],'row':self.row,'col':self.col}
+   self.cell={'text':'','links':[],'original_links':{},'images':[],'row':self.row,'col':self.col}
    for rr in range(self.row,self.row+min(int(a.get('rowspan','1')),100)):
     for cc in range(self.col,self.col+min(int(a.get('colspan','1')),100)):self.grid[(rr,cc)]=self.cell
    self.col+=min(int(a.get('colspan','1')),100)
@@ -138,7 +138,8 @@ class GridHTML(HTMLParser):
     url=a['href'];parts=urllib.parse.urlsplit(url)
     if parts.hostname in ('www.google.com','google.com'):
      qs=urllib.parse.parse_qs(parts.query);url=qs.get('q',qs.get('url',[url]))[0]
-    if url_ok(url):self.cell['links'].append(url)
+    if url_ok(url):
+     self.cell['links'].append(url);self.cell['original_links'][url]=a['href']
    if tag=='img' and url_ok(a.get('src')):self.cell['images'].append(a['src'])
    if tag=='br':self.cell['text']+=' '
  def handle_data(self,text):
@@ -177,7 +178,7 @@ def parse_html_sheet(html,source,gid):
    key=(url,name)
    if key in seen:continue
    seen.add(key)
-   products.append(dict(id=hashlib.sha256((source['id']+url+name).encode()).hexdigest()[:20],name=name,brand='Sonstige',euro=amount if currency=='EUR' else None,amount=amount,currency=currency,raw=raw or 'Preis fehlt',image=image,url=url,source=source['id'],sourceUrl=source['url'].split('#')[0]+'#gid='+gid,location='gid='+gid+' · Zeile '+str(rr),checked=now,status='Importiert aus lesbarer Google-Ansicht'))
+   products.append(dict(id=hashlib.sha256((source['id']+url+name).encode()).hexdigest()[:20],name=name,brand='Sonstige',euro=amount if currency=='EUR' else None,amount=amount,currency=currency,raw=raw or 'Preis fehlt',image=image,url=url,originalUrl=linkcell.get('original_links',{}).get(url,url),source=source['id'],sourceUrl=source['url'].split('#')[0]+'#gid='+gid,location='gid='+gid+' · Zeile '+str(rr),checked=now,status='Importiert aus lesbarer Google-Ansicht'))
    if amount is None:counts['missing_prices']+=1
    if not image:counts['missing_images']+=1
  return products,counts
