@@ -106,19 +106,6 @@
       "uncached_images": 2
     },
     {
-      "source": "Jfinds",
-      "id": "9",
-      "status": "ok",
-      "products": 4044,
-      "unmatched_links": 26,
-      "missing_prices": 3,
-      "missing_images": 114,
-      "conflicting_prices": 0,
-      "sheets_failed": 0,
-      "cached_images": 3932,
-      "uncached_images": 112
-    },
-    {
       "source": "BEST 2026",
       "id": "10",
       "status": "ok",
@@ -195,6 +182,19 @@
       "sheets_failed": 0,
       "cached_images": 2765,
       "uncached_images": 160
+    },
+    {
+      "source": "Jfinds",
+      "id": "9",
+      "status": "ok",
+      "products": 4044,
+      "unmatched_links": 26,
+      "missing_prices": 3,
+      "missing_images": 5,
+      "conflicting_prices": 0,
+      "sheets_failed": 0,
+      "cached_images": 4040,
+      "uncached_images": 4
     }
   ],
   "rates": {
@@ -231,5 +231,5 @@
       "ZAR": 18.5633
     }
   },
-  "updated": "2026-10-28T12:40:26.319959+00:00"
+  "updated": "2026-10-28T12:46:03.200832+00:00"
 }
