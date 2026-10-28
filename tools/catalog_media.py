@@ -1,5 +1,5 @@
 """Stable product identities and GitHub-hosted thumbnail caching."""
-import hashlib,io,os,re,threading,time,urllib.request,urllib.parse
+import hashlib,io,os,re,threading,time,urllib.request,urllib.parse,subprocess
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from PIL import Image,ImageOps
@@ -19,6 +19,13 @@ def identity(url):
     if qs.get(key) and qs[key][0].isdigit():
      site='taobao' if 'taobao' in u.hostname or platform=='taobao' else '1688' if '1688' in u.hostname or platform in ('ali_1688','1688') else 'weidian' if 'weidian' in u.hostname or platform=='weidian' else u.hostname
      return site+':'+qs[key][0]
+   numeric=re.search(r'/product/([0123])/(\d+)',u.path)
+   if numeric:
+    host=u.hostname.removeprefix('www.')
+    kind=({'1':'1688','2':'taobao','3':'weidian'} if host=='usfans.com' else {'0':'1688','1':'taobao'} if host=='litbuy.com' else {}).get(numeric[1])
+    if kind:return kind+':'+numeric[2]
+   offer=re.search(r'/offer/(\d+)\.html',u.path)
+   if re.search(r'(^|\.)1688\.com$',u.hostname) and offer:return '1688:'+offer[1]
    m=re.search(r'/(weidian|taobao|1688|3)/(\d+)',u.path)
    if m:return ('weidian' if m[1]=='3' else m[1])+':'+m[2]
    kept=[(k,v) for k,vs in qs.items() if k.lower() not in ('ref','affcode','invitecode','memberid','spm') for v in vs]
@@ -34,6 +41,10 @@ def download_thumbnail(product,out):
   local=out.parent/url
   if not local.exists():return ''
   raw=local.read_bytes()
+ elif urllib.parse.urlsplit(url).hostname in ('asmrhauler.com','www.asmrhauler.com'):
+  try:
+   raw=subprocess.run(['curl','--fail','--silent','--show-error','--location','--connect-timeout','12','--max-time','30','--max-filesize','10000000','--user-agent','Mozilla/5.0',url],capture_output=True,check=True,timeout=35).stdout
+  except Exception:return ''
  else:
   for attempt in range(2):
    try:
