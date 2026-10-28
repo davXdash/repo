@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict'),M=require('../dist/catalog-model.js');
+const a={name:'Adidas Samba',url:'https://litbuy.com/product/weidian/123?inviteCode=x',euro:20,source:'a',image:'https://example.com/a.jpg',location:'A1'};
+const b={...a,url:'https://www.usfans.com/product/3/123?ref=x',euro:22,source:'b',thumbnail:'imports/media/aa/aabb.webp',location:'B5'};
+assert.equal(M.identity(a.url),'weidian:123');assert.equal(M.identity(b.url),'weidian:123');
+assert.equal(M.identity('https://cnfans.com/product?platform=TAOBAO&id=123'),'taobao:123');
+let result=M.build([a,b,{...a,url:'https://weidian.com/item.html?itemID=124'}],[{id:'a',name:'A'},{id:'b',name:'B'}]);
+assert.equal(result.length,2);assert.equal(result[0].references.length,2);assert.equal(result[0].offers.length,2);assert.equal(result[0].price,20);assert.equal(result[0].images[0],b.thumbnail);assert.equal(result[0].cached,true);assert.equal(result[0].category.main,'Schuhe');
+assert.equal(M.category('Gucci Leather Loafer').sub,'Loafer');assert.equal(M.category('AMI Paris Hoodie').main,'Bekleidung');assert.equal(M.category('Rolex Submariner').main,'Uhren');assert.equal(M.category('Unknown Object').main,'Weitere Artikel');
+assert.equal(M.category('New Balance Hoodie').main,'Bekleidung');assert.equal(M.category('Rolex Uhrenbox').main,'Accessoires');
+console.log('PASS: product identity, cross-source deduplication, price offers, image preference, categories');
