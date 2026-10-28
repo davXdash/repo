@@ -19,6 +19,7 @@ USFans nennt im Help Center Warenpreis, Inlandsversand, internationalen Versand 
 
 ## Aktiver Funktionsumfang
 
+- Bei Änderungen der Menge oder Haul-Zusammensetzung bestehende Kosten als erneut zu prüfen markieren; bis zur Bestätigung keine vollständige Gesamtsumme ausweisen.
 - Produkte dauerhaft ausblenden und wiederherstellen; aus normaler Auswahl, Gesamtkatalog und Merkliste entfernen, ohne Originalquellen zu löschen.
 - Angebote derselben ursprünglichen Produkt-ID bei mehreren Agenten gegenüberstellen. Ähnliche Bilder oder Markennamen sind kein Identitätsnachweis.
 - Einen Haul mit konkretem Angebot und Menge pro Agent planen; alternative Agenten können mit denselben Produkt-IDs separat geplant werden.
