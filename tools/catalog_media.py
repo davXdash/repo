@@ -3,7 +3,7 @@ import hashlib,io,os,re,threading,time,urllib.request,urllib.parse
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from PIL import Image,ImageOps
-_POOL=ThreadPoolExecutor(max_workers=20);_LOCK=threading.Lock();_TASKS={}
+_POOL=ThreadPoolExecutor(max_workers=20);_LOCK=threading.Lock();_TASKS={};_TASK_IMAGES={}
 def identity(url):
  for _ in range(5):
   try:
@@ -57,7 +57,8 @@ def cache_products(products,out):
   if not p.get('image'):continue
   with _LOCK:
    key=(str(out),p['productKey'])
-   if key not in _TASKS:_TASKS[key]=_POOL.submit(download_thumbnail,p,out)
+   if key not in _TASKS or (_TASKS[key].done() and not _TASKS[key].result() and _TASK_IMAGES.get(key)!=p.get('image')):
+    _TASKS[key]=_POOL.submit(download_thumbnail,p,out);_TASK_IMAGES[key]=p.get('image')
    job=_TASKS[key]
   jobs.setdefault(job,[]).append(p)
  for job in as_completed(jobs):

@@ -40,7 +40,7 @@ form.addEventListener('submit',async event=>{
    }
   }catch {window.findsCatalog.importReports=[{source:'Skriptimporte',status:'blocked',reason:'Zusätzliche Importe gerade nicht erreichbar; bisherige Sammlung geladen.'}]}
 
-  const script=document.createElement('script');script.src='app.js';
+  const script=document.createElement('script');script.src='app.js?v=gallery3';
   await new Promise((resolve,reject)=>{script.onload=resolve;script.onerror=reject;document.body.append(script)});
   document.querySelector('#password').value='';document.querySelector('#gate').hidden=true;document.querySelector('#catalog').hidden=false;document.body.classList.remove('locked');document.querySelector('#query').focus();
  }catch(error){status.textContent=error.message==='password'?'Das Passwort stimmt nicht. Bitte erneut versuchen.':error.message==='crypto'?'Bitte die Seite über HTTPS in einem aktuellen Browser öffnen.':'Die Sammlung konnte nicht geladen werden. Bitte erneut versuchen.';}

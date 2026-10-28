@@ -31,6 +31,11 @@ jobs:
       - name: Importer prüfen
         if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         run: python tools/test_import_sheets.py
+      - name: Modell und Bildcache prüfen
+        if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
+        run: |
+          python tools/test_catalog_media.py
+          node tools/test_catalog_model.cjs
       - name: Sheets importieren
         if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         env:
@@ -47,6 +52,7 @@ jobs:
           git add dist/imports sources.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update imported catalog and source reports'
+            git pull --rebase origin main
             git push
           fi
       - uses: actions/configure-pages@v5
