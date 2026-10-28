@@ -7,4 +7,5 @@ let result=M.build([a,b,{...a,url:'https://weidian.com/item.html?itemID=124'}],[
 assert.equal(result.length,2);assert.equal(result[0].references.length,2);assert.equal(result[0].offers.length,2);assert.equal(result[0].price,20);assert.equal(result[0].images[0],b.thumbnail);assert.equal(result[0].cached,true);assert.equal(result[0].category.main,'Schuhe');
 assert.equal(M.category('Gucci Leather Loafer').sub,'Loafer');assert.equal(M.category('AMI Paris Hoodie').main,'Bekleidung');assert.equal(M.category('Rolex Submariner').main,'Uhren');assert.equal(M.category('Unknown Object').main,'Weitere Artikel');
 assert.equal(M.category('New Balance Hoodie').main,'Bekleidung');assert.equal(M.category('Rolex Uhrenbox').main,'Accessoires');
+assert.equal(M.build([a,{...a,name:'EUR 43.60',url:'https://weidian.com/item.html?itemID=999'}],[]).length,1);
 console.log('PASS: product identity, cross-source deduplication, price offers, image preference, categories');
