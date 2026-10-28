@@ -28,6 +28,11 @@ class CatalogImportTests(unittest.TestCase):
  def test_currency_cells_are_not_product_names(self):
   from import_sheets import product_name
   self.assertFalse(product_name('EUR 43.60'));self.assertFalse(product_name('27.00 €'));self.assertTrue(product_name('Nike P6000'))
+ def test_wide_product_block_keeps_name_instead_of_euro_cell(self):
+  html='<table><tr><td>New Balance 9060</td><td>EUR51.54</td><td><img src="https://example.com/shoe.jpg"></td><td></td><td></td><td><a href="https://mulebuy.com/item/123">Mulebuy LINK</a></td><td><a href="https://kakobuy.com/item/123">KakoBuy LINK</a></td></tr></table>'
+  products,_=parse_html_sheet(html,{'id':'14','url':'https://docs.google.com/spreadsheets/d/test/edit'},'1')
+  self.assertEqual(len(products),2)
+  for p in products:self.assertEqual(p['name'],'New Balance 9060');self.assertEqual(p['euro'],51.54);self.assertEqual(p['image'],'https://example.com/shoe.jpg')
  def test_number_formats(self):
   self.assertEqual(number_value('1,250.00'),1250);self.assertEqual(number_value('1.250,00'),1250);self.assertEqual(number_value('32,98'),32.98)
 if __name__=='__main__':unittest.main()
