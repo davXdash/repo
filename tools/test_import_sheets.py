@@ -19,6 +19,12 @@ class CatalogImportTests(unittest.TestCase):
   html='<table><tr><td><img src="https://example.com/a.jpg"></td><td>Golden Goose</td><td>$41.62</td><td>35.90 €</td><td><a href="https://shop.example/a">Link</a></td></tr></table>'
   products,_=parse_html_sheet(html,{'id':'x','url':'https://docs.google.com/spreadsheets/d/test/edit'},'1')
   self.assertEqual(products[0]['euro'],35.90);self.assertEqual(products[0]['currency'],'EUR')
+ def test_google_original_link_keeps_encoding_and_redirect(self):
+  original='https://www.google.com/url?q=https%3A%2F%2Ffishgoo.com%2F%23%2Fproduct%3FproductLink%3Dhttps%25253A%25252F%25252Fweidian.com%25252Fitem.html%25253FitemID%25253D123&sa=D&usg=test'
+  html='<table><tr><td>Adidas Samba</td><td><a href="'+original.replace('&','&amp;')+'">LINK</a></td><td>27 €</td></tr></table>'
+  products,_=parse_html_sheet(html,{'id':'x','url':'https://docs.google.com/spreadsheets/d/test/edit'},'1')
+  self.assertEqual(products[0]['originalUrl'],original)
+  self.assertIn('productLink=https%253A',products[0]['url'])
  def test_number_formats(self):
   self.assertEqual(number_value('1,250.00'),1250);self.assertEqual(number_value('1.250,00'),1250);self.assertEqual(number_value('32,98'),32.98)
 if __name__=='__main__':unittest.main()
