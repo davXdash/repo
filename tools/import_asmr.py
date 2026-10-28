@@ -1,11 +1,18 @@
 """ASMRHauler public product API; retain source prices and original purchase URLs."""
-import hashlib,json,math,urllib.request,urllib.parse
+import hashlib,json,math,urllib.request,urllib.parse,subprocess,time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime,timezone
 BASE='https://asmrhauler.com'
 def page(offset):
  url=BASE+'/api/products?'+urllib.parse.urlencode(dict(limit=60,offset=offset,domain='asmrhauler.com'))
- with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0','Accept':'application/json'}),timeout=50) as r:return json.load(r)
+ for attempt in range(3):
+  try:
+   result=subprocess.run(['curl','--fail','--silent','--show-error','--location','--connect-timeout','15','--max-time','50','--retry','2','--max-filesize','10000000','--user-agent','Mozilla/5.0','--header','Accept: application/json',url],capture_output=True,check=True,timeout=180)
+   return json.loads(result.stdout)
+  except subprocess.CalledProcessError as error:
+   if attempt==2 or error.returncode not in (5,6,7,28,35,52,55,56):raise
+   time.sleep(attempt+1)
+
 def records(items,source):
  products=[];seen=set();now=datetime.now(timezone.utc).date().isoformat()
  for item in items:
