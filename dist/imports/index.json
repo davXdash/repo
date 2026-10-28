@@ -1,0 +1,209 @@
+{
+  "files": [
+    "4e07408562bedb8b60ce.json",
+    "d4735e3a265e16eee03f.json",
+    "6b86b273ff34fce19d6b.json",
+    "ef2d127de37b942baad0.json",
+    "4b227777d4dd1fc61c6f.json",
+    "2c624232cdd221771294.json",
+    "19581e27de7ced00ff1c.json",
+    "4a44dc15364204a80fe8.json",
+    "4fc82b26aecb47d2868c.json",
+    "6b51d431df5d7f141cbe.json",
+    "8527a891e224136950ff.json",
+    "3fdba35f04dc8c462986.json",
+    "e629fa6598d732768f7c.json"
+  ],
+  "reports": [
+    {
+      "source": "Liste 3",
+      "id": "3",
+      "status": "ok",
+      "products": 2325,
+      "unmatched_links": 2,
+      "missing_prices": 0,
+      "missing_images": 46,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Liste 2 · Summer / Autumn Picks",
+      "id": "2",
+      "status": "ok",
+      "products": 3878,
+      "unmatched_links": 9,
+      "missing_prices": 0,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Liste 1",
+      "id": "1",
+      "status": "ok",
+      "products": 3849,
+      "unmatched_links": 25,
+      "missing_prices": 5,
+      "missing_images": 5,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Liste 4",
+      "id": "4",
+      "status": "ok",
+      "products": 4298,
+      "unmatched_links": 21,
+      "missing_prices": 1,
+      "missing_images": 104,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Liste 5",
+      "id": "5",
+      "status": "ok",
+      "products": 2793,
+      "unmatched_links": 6,
+      "missing_prices": 10,
+      "missing_images": 10,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Paris Store",
+      "id": "8",
+      "status": "ok",
+      "products": 2121,
+      "unmatched_links": 79,
+      "missing_prices": 0,
+      "missing_images": 3,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Jfinds",
+      "id": "9",
+      "status": "ok",
+      "products": 4044,
+      "unmatched_links": 26,
+      "missing_prices": 3,
+      "missing_images": 114,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "BEST 2026",
+      "id": "10",
+      "status": "ok",
+      "products": 2381,
+      "unmatched_links": 22,
+      "missing_prices": 5,
+      "missing_images": 5,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Gmoney",
+      "id": "11",
+      "status": "ok",
+      "products": 1992,
+      "unmatched_links": 19,
+      "missing_prices": 0,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "CLFINDS online",
+      "id": "12",
+      "status": "ok",
+      "products": 3001,
+      "unmatched_links": 28,
+      "missing_prices": 14,
+      "missing_images": 14,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Liste 7 – Anmeldung nötig",
+      "id": "7",
+      "status": "blocked",
+      "reason": "Zugriff verweigert: Freigabe oder Export gesperrt"
+    },
+    {
+      "source": "Liste 6 – Anmeldung nötig",
+      "id": "6",
+      "status": "blocked",
+      "reason": "Zugriff verweigert: Freigabe oder Export gesperrt"
+    },
+    {
+      "source": "CNFANS 9000+",
+      "id": "15",
+      "status": "ok",
+      "products": 2061,
+      "unmatched_links": 8,
+      "missing_prices": 0,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "W2CFinds",
+      "id": "14",
+      "status": "ok",
+      "products": 3023,
+      "unmatched_links": 23,
+      "missing_prices": 48,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    },
+    {
+      "source": "Litbuy",
+      "id": "13",
+      "status": "ok",
+      "products": 4352,
+      "unmatched_links": 12,
+      "missing_prices": 2,
+      "missing_images": 1,
+      "conflicting_prices": 0,
+      "sheets_failed": 0
+    }
+  ],
+  "rates": {
+    "date": "2026-10-27",
+    "rates": {
+      "USD": 1.115,
+      "JPY": 175.97,
+      "CZK": 24.348,
+      "DKK": 7.4742,
+      "GBP": 0.83658,
+      "HUF": 367.48,
+      "PLN": 4.402,
+      "RON": 5.3488,
+      "SEK": 11.0795,
+      "CHF": 0.9239,
+      "ISK": 136.4,
+      "NOK": 10.3885,
+      "TRY": 55.513,
+      "AUD": 1.5856,
+      "BRL": 5.9624,
+      "CAD": 1.5636,
+      "CNY": 7.4343,
+      "HKD": 8.7466,
+      "IDR": 20224.54,
+      "ILS": 3.4003,
+      "INR": 106.0635,
+      "KRW": 1480.44,
+      "MXN": 20.78,
+      "MYR": 4.5592,
+      "NZD": 1.9552,
+      "PHP": 71.353,
+      "SGD": 1.4285,
+      "THB": 37.654,
+      "ZAR": 18.5633
+    }
+  },
+  "updated": "2026-10-28T10:46:14.365340+00:00"
+}
