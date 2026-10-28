@@ -1,0 +1,7 @@
+const assert=require('node:assert/strict');globalThis.FindsModel=require('../dist/catalog-model.js');const S=require('../dist/sync.js');
+const item={key:'weidian:1',name:'Samba',offer:{url:'https://www.usfans.com/product/3/1',euro:20},quantity:2};
+const state={saved:{a:{key:'a',offers:[item.offer]}},hidden:{},hauls:{'usfans.com':{items:{'weidian:1':item},shipping:'10',packing:'0',fees:''}}};
+const records=Object.fromEntries(Object.entries(S.flatten(state)).map(([k,v])=>[k,{...v,time:1,device:'a'}]));let round=S.expand(records);assert.equal(round.hauls['usfans.com'].items['weidian:1'].quantity,2);assert.equal(round.saved.a.key,'a');
+const key=JSON.stringify(['saved','a']);let removed={...records,[key]:{...records[key],value:null,time:3,device:'b'}};assert.equal(S.expand(S.merge(removed,records)).saved.a,undefined);assert.equal(S.expand(S.merge(records,removed)).saved.a,undefined);
+const restored={...records,[key]:{...records[key],time:4,device:'a'}};assert.equal(S.expand(S.merge(removed,restored)).saved.a.key,'a');
+const addKey=JSON.stringify(['hidden','b']),added={[addKey]:{kind:'hidden',key:'b',value:{key:'b',offers:[item.offer]},time:2,device:'b'}};assert.equal(Object.keys(S.expand(S.merge(records,added)).hidden).length,1);assert.equal(S.expand(S.merge(records,added)).hauls['usfans.com'].items['weidian:1'].quantity,2);console.log('PASS sync round-trip, concurrent independent changes, deletion tombstones and restores');
