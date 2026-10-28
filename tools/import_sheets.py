@@ -232,6 +232,9 @@ def main():
   def process_source(source):
    try:
     if source.get('path'):p=Path(source['path'])
+    elif source.get('type')=='trellox':
+     from import_trellox import parse_trellox
+     products,counts=parse_trellox(source,out)
     else:
      match=re.search(r'/spreadsheets/d/([A-Za-z0-9_-]+)',source['url'])
      if not match:raise ValueError('Kein gültiger Google-Sheets-Link')
