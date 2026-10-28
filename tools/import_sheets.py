@@ -217,11 +217,15 @@ def euro_rates():
  except Exception:return None
 
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--links',default='');parser.add_argument('--xlsx',action='append',default=[]);parser.add_argument('--output',default=str(ROOT/'dist/imports'));args=parser.parse_args();out=Path(args.output);out.mkdir(parents=True,exist_ok=True)
+ parser=argparse.ArgumentParser();parser.add_argument('--links',default='');parser.add_argument('--only-source',default='');parser.add_argument('--xlsx',action='append',default=[]);parser.add_argument('--output',default=str(ROOT/'dist/imports'));args=parser.parse_args();out=Path(args.output);out.mkdir(parents=True,exist_ok=True)
  sources=json.loads((ROOT/'sources.json').read_text());extra=re.findall(r'https://docs\.google\.com/spreadsheets/d/[A-Za-z0-9_-]+',args.links)
  for url in extra:
   if not any(url in s['url'] for s in sources):sources.append(dict(id=hashlib.sha256(url.encode()).hexdigest()[:12],name='Neue Liste',url=url+'/edit'))
  for path in args.xlsx:sources.append(dict(id='file-'+hashlib.sha256(Path(path).name.encode()).hexdigest()[:12],name=Path(path).name,url='',path=path))
+ configured_sources=list(sources)
+ if args.only_source:
+  sources=[s for s in sources if s['id']==args.only_source]
+  if not sources:parser.error('Unbekannte Quell-ID')
  index_path=out/'index.json';index=json.loads(index_path.read_text()) if index_path.exists() else {'files':[],'reports':[]};reports=[];rates=euro_rates()
  import tempfile
  with tempfile.TemporaryDirectory() as temp:
@@ -261,7 +265,7 @@ def main():
     reason='Zugriff verweigert: Freigabe oder Export gesperrt' if isinstance(e,urllib.error.HTTPError) and e.code in (401,403) else str(e)[:200]
     reports.append(dict(source=source['name'],id=source['id'],status='blocked',reason=reason));print(source['name']+': '+reason)
   with ThreadPoolExecutor(max_workers=3) as executor:list(executor.map(process_source,sources))
- index['reports']=reports;index['rates']=rates;index['updated']=datetime.now(timezone.utc).isoformat();index_path.write_text(json.dumps(index,ensure_ascii=False,indent=2))
- (ROOT/'sources.json').write_text(json.dumps([{k:v for k,v in s.items() if k!='path'} for s in sources if not s.get('path')],ensure_ascii=False,indent=2))
+ changed={r['id'] for r in reports};index['reports']=[r for r in index.get('reports',[]) if r.get('id') not in changed]+reports;index['rates']=rates;index['updated']=datetime.now(timezone.utc).isoformat();index_path.write_text(json.dumps(index,ensure_ascii=False,indent=2))
+ (ROOT/'sources.json').write_text(json.dumps([{k:v for k,v in s.items() if k!='path'} for s in configured_sources if not s.get('path')],ensure_ascii=False,indent=2))
  if not any(r['status']=='ok' for r in reports):print('Kein neuer Import. Vorhandene Daten bleiben erhalten.',file=sys.stderr)
 if __name__=='__main__':main()
