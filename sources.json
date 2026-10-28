@@ -79,5 +79,16 @@
     "name": "Trellox",
     "url": "https://trellox.de/",
     "type": "trellox"
+  },
+  {
+    "id": "asmr-web",
+    "name": "ASMRHauler Webseite",
+    "url": "https://asmrhauler.com/",
+    "type": "asmr"
+  },
+  {
+    "id": "asmr-sheet",
+    "name": "Theswagagenda Spreadsheet",
+    "url": "https://docs.google.com/spreadsheets/d/1Tz9bH3g0ZWcNhA646jNddF_qrQbE_iJ9tY7IuJ2SjbY/edit"
   }
 ]

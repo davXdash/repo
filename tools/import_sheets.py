@@ -224,7 +224,7 @@ def main():
  for path in args.xlsx:sources.append(dict(id='file-'+hashlib.sha256(Path(path).name.encode()).hexdigest()[:12],name=Path(path).name,url='',path=path))
  configured_sources=list(sources)
  if args.only_source:
-  sources=[s for s in sources if s['id']==args.only_source]
+  selected=set(args.only_source.split(','));sources=[s for s in sources if s['id'] in selected]
   if not sources:parser.error('Unbekannte Quell-ID')
  index_path=out/'index.json';index=json.loads(index_path.read_text()) if index_path.exists() else {'files':[],'reports':[]};reports=[];rates=euro_rates()
  import tempfile
@@ -232,6 +232,9 @@ def main():
   def process_source(source):
    try:
     if source.get('path'):p=Path(source['path'])
+    elif source.get('type')=='asmr':
+     from import_asmr import parse_asmr
+     products,counts=parse_asmr(source,out)
     elif source.get('type')=='trellox':
      from import_trellox import parse_trellox
      products,counts=parse_trellox(source,out)
