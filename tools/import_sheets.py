@@ -89,7 +89,7 @@ def parse_xlsx(path,source,out):
     namecell=candidates[-1];name=re.sub(r'\s+',' ',namecell.value).strip()
     # Image and price candidates stay within this product's block.
     block=[c for c in row if namecell.column<=c.column<min(right,link.column+5)]
-    pcells=[namecell]+[c for c in block if c.column>link.column]
+    pcells=[namecell]+[c for c in block if c is not namecell and c is not link]
     amount,currency,raw=price_of(pcells,cache,headers)
     image=''
     for c in block:
@@ -166,8 +166,9 @@ def parse_html_sheet(html,source,gid):
   nc=names[-1];name=re.sub(r'\s+',' ',nc['text']).strip();near=[]
   for col in range(max(0,nc['col']-1),cc+4):
    c=grid.get((rr,col))
+   if c and col>cc and product_name(c['text'].strip()):break
    if c and id(c) not in [id(x) for x in near]:near.append(c)
-  prices=[nc]+[c for c in near if c['col']>cc]
+  prices=[nc]+[c for c in near if c is not nc and c is not linkcell]
   cells=[SimpleNamespace(value=c['text'].strip(),coordinate=str(i),number_format='',column=c['col']) for i,c in enumerate(prices)]
   amount,currency,raw=price_of(cells,{},{});image=next((im for c in near for im in c['images']),'')
   if not image:
@@ -176,7 +177,7 @@ def parse_html_sheet(html,source,gid):
    key=(url,name)
    if key in seen:continue
    seen.add(key)
-   products.append(dict(id=hashlib.sha256((source['id']+url+name).encode()).hexdigest()[:20],name=name,brand='Sonstige',euro=amount if currency=='EUR' else None,amount=amount,currency=currency,raw=raw or 'Preis fehlt',image=image,url=url,source=source['id'],location='gid='+gid+' · Zeile '+str(rr),checked=now,status='Importiert aus lesbarer Google-Ansicht'))
+   products.append(dict(id=hashlib.sha256((source['id']+url+name).encode()).hexdigest()[:20],name=name,brand='Sonstige',euro=amount if currency=='EUR' else None,amount=amount,currency=currency,raw=raw or 'Preis fehlt',image=image,url=url,source=source['id'],sourceUrl=source['url'].split('#')[0]+'#gid='+gid,location='gid='+gid+' · Zeile '+str(rr),checked=now,status='Importiert aus lesbarer Google-Ansicht'))
    if amount is None:counts['missing_prices']+=1
    if not image:counts['missing_images']+=1
  return products,counts
