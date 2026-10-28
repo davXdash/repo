@@ -1,0 +1,57 @@
+name: Sheets importieren und Pages veröffentlichen
+on:
+  push:
+    branches: [main]
+    paths: ['dist/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+    inputs:
+      sheet_links:
+        description: 'Weitere Google-Sheets-Links (optional, durch Leerzeichen oder Zeilenumbrüche getrennt)'
+        required: false
+        type: string
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          python-version: '3.12'
+      - name: Import-Abhängigkeiten installieren
+        if: github.event_name == 'workflow_dispatch'
+        run: pip install -r tools/requirements.txt
+      - name: Importer prüfen
+        if: github.event_name == 'workflow_dispatch'
+        run: python tools/test_import_sheets.py
+      - name: Sheets importieren
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          SHEET_LINKS: ${{ inputs.sheet_links }}
+        run: python tools/import_sheets.py --links "$SHEET_LINKS"
+      - name: Aktualisierte Sammlung speichern
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dist/imports sources.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update imported catalog and source reports'
+            git push
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - uses: actions/deploy-pages@v4
+        id: deployment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
