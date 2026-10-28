@@ -51,8 +51,8 @@
       "missing_images": 0,
       "conflicting_prices": 0,
       "sheets_failed": 0,
-      "cached_images": 3666,
-      "uncached_images": 212
+      "cached_images": 3798,
+      "uncached_images": 80
     },
     {
       "source": "Liste 6 – Anmeldung nötig",
@@ -67,19 +67,6 @@
       "reason": "Zugriff verweigert: Freigabe oder Export gesperrt"
     },
     {
-      "source": "Liste 4",
-      "id": "4",
-      "status": "ok",
-      "products": 4298,
-      "unmatched_links": 21,
-      "missing_prices": 1,
-      "missing_images": 104,
-      "conflicting_prices": 0,
-      "sheets_failed": 0,
-      "cached_images": 2183,
-      "uncached_images": 2115
-    },
-    {
       "source": "Liste 5",
       "id": "5",
       "status": "ok",
@@ -89,8 +76,21 @@
       "missing_images": 10,
       "conflicting_prices": 0,
       "sheets_failed": 0,
-      "cached_images": 2027,
-      "uncached_images": 766
+      "cached_images": 2788,
+      "uncached_images": 5
+    },
+    {
+      "source": "Liste 4",
+      "id": "4",
+      "status": "ok",
+      "products": 4298,
+      "unmatched_links": 21,
+      "missing_prices": 1,
+      "missing_images": 104,
+      "conflicting_prices": 0,
+      "sheets_failed": 0,
+      "cached_images": 4195,
+      "uncached_images": 103
     },
     {
       "source": "Paris Store",
@@ -102,8 +102,8 @@
       "missing_images": 3,
       "conflicting_prices": 0,
       "sheets_failed": 0,
-      "cached_images": 2063,
-      "uncached_images": 58
+      "cached_images": 2119,
+      "uncached_images": 2
     },
     {
       "source": "Jfinds",
@@ -115,8 +115,8 @@
       "missing_images": 114,
       "conflicting_prices": 0,
       "sheets_failed": 0,
-      "cached_images": 3926,
-      "uncached_images": 118
+      "cached_images": 3932,
+      "uncached_images": 112
     },
     {
       "source": "BEST 2026",
@@ -145,19 +145,6 @@
       "uncached_images": 0
     },
     {
-      "source": "CLFINDS online",
-      "id": "12",
-      "status": "ok",
-      "products": 3001,
-      "unmatched_links": 28,
-      "missing_prices": 14,
-      "missing_images": 14,
-      "conflicting_prices": 0,
-      "sheets_failed": 0,
-      "cached_images": 2922,
-      "uncached_images": 79
-    },
-    {
       "source": "Litbuy",
       "id": "13",
       "status": "ok",
@@ -167,21 +154,21 @@
       "missing_images": 1,
       "conflicting_prices": 0,
       "sheets_failed": 0,
-      "cached_images": 3972,
-      "uncached_images": 380
+      "cached_images": 4351,
+      "uncached_images": 1
     },
     {
-      "source": "W2CFinds",
-      "id": "14",
+      "source": "CLFINDS online",
+      "id": "12",
       "status": "ok",
-      "products": 3023,
-      "unmatched_links": 23,
-      "missing_prices": 48,
-      "missing_images": 0,
+      "products": 3001,
+      "unmatched_links": 28,
+      "missing_prices": 14,
+      "missing_images": 14,
       "conflicting_prices": 0,
       "sheets_failed": 0,
-      "cached_images": 2795,
-      "uncached_images": 228
+      "cached_images": 2999,
+      "uncached_images": 2
     },
     {
       "source": "CNFANS 9000+",
@@ -195,6 +182,19 @@
       "sheets_failed": 0,
       "cached_images": 2061,
       "uncached_images": 0
+    },
+    {
+      "source": "W2CFinds",
+      "id": "14",
+      "status": "ok",
+      "products": 3023,
+      "unmatched_links": 23,
+      "missing_prices": 48,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "sheets_failed": 0,
+      "cached_images": 2837,
+      "uncached_images": 186
     }
   ],
   "rates": {
@@ -231,5 +231,5 @@
       "ZAR": 18.5633
     }
   },
-  "updated": "2026-10-28T12:24:32.437869+00:00"
+  "updated": "2026-10-28T12:28:32.517910+00:00"
 }
