@@ -24,7 +24,22 @@
       "missing_prices": 0,
       "missing_images": 46,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 2302,
+      "uncached_images": 23
+    },
+    {
+      "source": "Liste 1",
+      "id": "1",
+      "status": "ok",
+      "products": 3832,
+      "unmatched_links": 25,
+      "missing_prices": 5,
+      "missing_images": 5,
+      "conflicting_prices": 0,
+      "sheets_failed": 0,
+      "cached_images": 3827,
+      "uncached_images": 5
     },
     {
       "source": "Liste 2 · Summer / Autumn Picks",
@@ -35,18 +50,21 @@
       "missing_prices": 0,
       "missing_images": 0,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 3666,
+      "uncached_images": 212
     },
     {
-      "source": "Liste 1",
-      "id": "1",
-      "status": "ok",
-      "products": 3849,
-      "unmatched_links": 25,
-      "missing_prices": 5,
-      "missing_images": 5,
-      "conflicting_prices": 0,
-      "sheets_failed": 0
+      "source": "Liste 6 – Anmeldung nötig",
+      "id": "6",
+      "status": "blocked",
+      "reason": "Zugriff verweigert: Freigabe oder Export gesperrt"
+    },
+    {
+      "source": "Liste 7 – Anmeldung nötig",
+      "id": "7",
+      "status": "blocked",
+      "reason": "Zugriff verweigert: Freigabe oder Export gesperrt"
     },
     {
       "source": "Liste 4",
@@ -57,7 +75,9 @@
       "missing_prices": 1,
       "missing_images": 104,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 2183,
+      "uncached_images": 2115
     },
     {
       "source": "Liste 5",
@@ -68,7 +88,9 @@
       "missing_prices": 10,
       "missing_images": 10,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 2027,
+      "uncached_images": 766
     },
     {
       "source": "Paris Store",
@@ -79,7 +101,9 @@
       "missing_prices": 0,
       "missing_images": 3,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 2063,
+      "uncached_images": 58
     },
     {
       "source": "Jfinds",
@@ -90,7 +114,9 @@
       "missing_prices": 3,
       "missing_images": 114,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 3926,
+      "uncached_images": 118
     },
     {
       "source": "BEST 2026",
@@ -101,7 +127,9 @@
       "missing_prices": 5,
       "missing_images": 5,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 2376,
+      "uncached_images": 5
     },
     {
       "source": "Gmoney",
@@ -112,7 +140,9 @@
       "missing_prices": 0,
       "missing_images": 0,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 1992,
+      "uncached_images": 0
     },
     {
       "source": "CLFINDS online",
@@ -123,41 +153,9 @@
       "missing_prices": 14,
       "missing_images": 14,
       "conflicting_prices": 0,
-      "sheets_failed": 0
-    },
-    {
-      "source": "Liste 7 – Anmeldung nötig",
-      "id": "7",
-      "status": "blocked",
-      "reason": "Zugriff verweigert: Freigabe oder Export gesperrt"
-    },
-    {
-      "source": "Liste 6 – Anmeldung nötig",
-      "id": "6",
-      "status": "blocked",
-      "reason": "Zugriff verweigert: Freigabe oder Export gesperrt"
-    },
-    {
-      "source": "CNFANS 9000+",
-      "id": "15",
-      "status": "ok",
-      "products": 2061,
-      "unmatched_links": 8,
-      "missing_prices": 0,
-      "missing_images": 0,
-      "conflicting_prices": 0,
-      "sheets_failed": 0
-    },
-    {
-      "source": "W2CFinds",
-      "id": "14",
-      "status": "ok",
-      "products": 3023,
-      "unmatched_links": 23,
-      "missing_prices": 48,
-      "missing_images": 0,
-      "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 2922,
+      "uncached_images": 79
     },
     {
       "source": "Litbuy",
@@ -168,7 +166,35 @@
       "missing_prices": 2,
       "missing_images": 1,
       "conflicting_prices": 0,
-      "sheets_failed": 0
+      "sheets_failed": 0,
+      "cached_images": 3972,
+      "uncached_images": 380
+    },
+    {
+      "source": "W2CFinds",
+      "id": "14",
+      "status": "ok",
+      "products": 3023,
+      "unmatched_links": 23,
+      "missing_prices": 48,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "sheets_failed": 0,
+      "cached_images": 2795,
+      "uncached_images": 228
+    },
+    {
+      "source": "CNFANS 9000+",
+      "id": "15",
+      "status": "ok",
+      "products": 2061,
+      "unmatched_links": 8,
+      "missing_prices": 0,
+      "missing_images": 0,
+      "conflicting_prices": 0,
+      "sheets_failed": 0,
+      "cached_images": 2061,
+      "uncached_images": 0
     }
   ],
   "rates": {
@@ -205,5 +231,5 @@
       "ZAR": 18.5633
     }
   },
-  "updated": "2026-10-28T10:46:14.365340+00:00"
+  "updated": "2026-10-28T12:24:32.437869+00:00"
 }
