@@ -7,6 +7,7 @@ from cryptography.hazmat.primitives import hashes,serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import os,tempfile,gzip
+from catalog_media import cache_products,identity
 ROOT=Path(__file__).resolve().parent.parent
 NS={'m':'http://schemas.openxmlformats.org/spreadsheetml/2006/main','d':'http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing','a':'http://schemas.openxmlformats.org/drawingml/2006/main'}
 RID='{http://schemas.openxmlformats.org/officeDocument/2006/relationships}'
@@ -152,7 +153,7 @@ def fetch_text(url):
  import time
  cache=Path(os.environ.get('FINDS_HTTP_CACHE',str(Path(tempfile.gettempdir())/'finds-http-cache')))
  cache.mkdir(exist_ok=True,parents=True);file=cache/(hashlib.sha256(url.encode()).hexdigest()+'.html')
- if file.exists() and time.time()-file.stat().st_mtime<1800:return file.read_text()
+ if os.environ.get('FINDS_USE_HTML_CACHE')=='1' and file.exists() and time.time()-file.stat().st_mtime<1800:return file.read_text()
  with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'DavesFindsImporter/1.0'}),timeout=50) as response:text=response.read(50_000_000).decode('utf-8')
  file.write_text(text);return text
 def parse_html_sheet(html,source,gid):
@@ -247,6 +248,8 @@ def main():
      currency=product['currency'];amount=product['amount']
      if amount is not None and currency!='EUR' and rates and currency in rates['rates']:
       product['euro']=round(amount/rates['rates'][currency],2);product['rateDate']=rates['date']
+    counts['cached_images']=cache_products(products,out)
+    counts['uncached_images']=len(products)-counts['cached_images']
     filename=hashlib.sha256(source['id'].encode()).hexdigest()[:20]+'.json';seal({'source':{k:v for k,v in source.items() if k!='path'},'products':products,'report':counts},out/filename)
     if filename not in index['files']:index['files'].append(filename)
     reports.append(dict(source=source['name'],id=source['id'],status='ok',products=len(products),**counts));print(source['name']+': '+str(len(products))+' Produkte')
