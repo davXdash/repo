@@ -3,7 +3,7 @@ const form=document.querySelector('#unlock'),status=document.querySelector('#aut
 const bytes=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 // A non-extractable WebCrypto key survives tab suspension; the password is never stored.
 function deviceKey(mode,value){return new Promise((resolve,reject)=>{const req=indexedDB.open('finds-device-unlock',1);req.onupgradeneeded=()=>req.result.createObjectStore('keys');req.onerror=()=>reject(req.error);req.onsuccess=()=>{const db=req.result,tx=db.transaction('keys',mode==='get'?'readonly':'readwrite'),store=tx.objectStore('keys');const action=mode==='get'?store.get('material'):mode==='delete'?store.delete('material'):store.put(value,'material');action.onsuccess=()=>{if(mode==='get')resolve(action.result)};tx.oncomplete=()=>{db.close();if(mode!=='get')resolve()};tx.onerror=()=>reject(tx.error)}})}
-window.forgetFindsDevice=async()=>{await deviceKey('delete');location.reload()};
+window.forgetFindsDevice=async()=>{localStorage.removeItem('finds-github-token-v1');await deviceKey('delete');location.reload()};
 async function openCollection(savedMaterial){button.disabled=true;status.textContent='Sammlung wird geöffnet …';
  try{
   if(!window.crypto?.subtle)throw new Error('crypto');
@@ -12,6 +12,7 @@ async function openCollection(savedMaterial){button.disabled=true;status.textCon
   const material=savedMaterial||await crypto.subtle.importKey('raw',new TextEncoder().encode(document.querySelector('#password').value),'PBKDF2',false,['deriveKey']);
   const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:bytes(payload.salt),iterations:payload.iterations,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['decrypt']);
   let plaintext;try{plaintext=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(payload.iv)},key,bytes(payload.ciphertext))}catch{throw new Error('password')}
+  window.findsSessionMaterial=material;
   window.findsCatalog=JSON.parse(new TextDecoder().decode(plaintext));
   try {
    const indexResponse=await fetch('imports/index.json',{cache:'no-store'});
@@ -42,7 +43,7 @@ async function openCollection(savedMaterial){button.disabled=true;status.textCon
    }
   }catch {window.findsCatalog.importReports=[{source:'Skriptimporte',status:'blocked',reason:'Zusätzliche Importe gerade nicht erreichbar; bisherige Sammlung geladen.'}]}
 
-  const script=document.createElement('script');script.src='app.js?v=gallery5';
+  const script=document.createElement('script');script.src='app.js?v=gallery6';
   await new Promise((resolve,reject)=>{script.onload=resolve;script.onerror=reject;document.body.append(script)});
   if(!savedMaterial&&document.querySelector('#remember-device').checked){try{await deviceKey('put',material)}catch{status.textContent='Dieses Gerät konnte nicht gespeichert werden.'}}
   document.querySelector('#password').value='';document.querySelector('#gate').hidden=true;document.querySelector('#catalog').hidden=false;document.body.classList.remove('locked');document.querySelector('#query').focus();

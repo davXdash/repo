@@ -13,3 +13,9 @@ console.log('PASS: product identity, cross-source deduplication, price offers, i
 assert.equal(M.sellerUrl('https://litbuy.com/product/weidian/123?inviteCode=A'),'https://weidian.com/item.html?itemID=123');
 const nested='https://item.taobao.com/item.htm?id=456&skuId=789';assert.equal(M.sellerUrl('https://www.pikobuy.com/product/detail?productUrl='+encodeURIComponent(nested)),nested);
 assert.equal(M.build([{name:'Shoe',url:nested},{name:'Golden Goose GGS',url:nested}],[])[0].mine,true);
+const h={items:{x:{key:'x',name:'Samba',quantity:2,offer:{url:a.url,euro:20}}},shipping:'10',packing:'0',domestic:'0',fees:'1,50',taxes:'0'};
+assert.equal(M.haulTotals(h).total,51.5);assert.equal(M.haulTotals({...h,shipping:''}).total,null);assert.equal(M.haulTotals({...h,fees:'-1'}).total,null);assert.equal(M.haulTotals({...h,items:{x:{...h.items.x,offer:{url:a.url,euro:null}}}}).unknown,2);
+const comparison=M.compareHaul(h,new Map([['x',{offers:[a,{...b,euro:25}]}]]));assert.equal(comparison[0].id,'litbuy.com');assert.equal(comparison[0].goods,40);assert.equal(comparison.find(c=>c.id==='usfans.com').goods,50);assert.equal(comparison[0].items.x.quantity,2);
+console.log('PASS haul totals, unknown costs, quantity and separate-agent comparisons');
+
+assert.equal(M.haulTotals({...h,costsStale:true}).total,null);
