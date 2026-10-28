@@ -39,3 +39,12 @@ python tools/test_import_sheets.py
 ```
 
 Der bestehende Passwortzugang bleibt beim Aktualisieren erhalten. Die Live-Dateien liegen in `dist/`; `sources.json` enthält die Eingangslinks.
+
+
+## Galerie und Merkliste (Oktober 2026)
+
+Die Oberfläche zeigt Produktkarten, Kategorien und Unterkategorien. Ein Klick auf das Foto öffnet Bilder, Angebote und alle Original-Fundstellen in einem Dialog. Nur die ausdrücklich gewählten Anbieter-Links öffnen eine externe Seite. Filter und Position bleiben pro Ansicht auf dem Gerät erhalten. Die Merkliste wird lokal gespeichert und kann als JSON exportiert/importiert werden; es gibt keine automatische Gerätesynchronisation.
+
+Gleiche ursprüngliche Produkt-IDs werden zu einer Karte mit mehreren Angeboten zusammengefasst. Unterschiedliche IDs oder bloß ähnliche Produktnamen werden nicht zusammengelegt. Identische Quelllisten werden anhand ihrer vollständigen Mengen von Produkt-IDs erkannt.
+
+Google-Bildadressen können ablaufen. Der Import speichert deshalb 480-Pixel-Vorschaubilder unter `dist/imports/media/` auf GitHub und referenziert diese im verschlüsselten Katalog. Bereits gespeicherte Bilder benötigen keinen erneuten Zugriff auf Google. Vorschaubilder selbst sind als statische Dateien öffentlich abrufbar; die Katalogdaten bleiben verschlüsselt.
