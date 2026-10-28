@@ -1,0 +1,5 @@
+const assert=require('node:assert/strict');globalThis.FindsModel=require('../dist/catalog-model.js');const A=require('../dist/agent-model.js');
+const inputs=['https://weidian.com/item.html?itemID=7452046786','https://item.taobao.com/item.htm?id=844978413180','https://detail.1688.com/offer/950518363279.html'];
+for(const input of inputs)for(const target of Object.keys(A.agents).filter(x=>x!=='original')){const output=A.convert(input,target);assert.ok(output);assert.deepEqual(A.ref(output),A.ref(input),target+' product identity');assert.ok(!/inviteCode|affcode|ref=/.test(output))}
+const g={offers:[{url:'https://litbuy.com/product/weidian/7452046786',euro:20,source:'a'},{url:'https://www.usfans.com/product/3/7452046786',euro:25,source:'b'}]};assert.equal(A.preferred(g,'usfans.com').euro,25);assert.equal(A.preferred(g,'pikobuy.com').euro,null);assert.equal(A.preferred(g,'pikobuy.com').converted,true);assert.equal(A.convert('https://example.com/item?id=123','usfans.com'),'');
+console.log('PASS all agent/platform link round-trips, original offers and unknown converted prices');
