@@ -3,3 +3,5 @@
 [hidden]{display:none!important}#gate{max-width:1200px;margin:auto;padding:70px 30px}.gatecard{max-width:550px}.gatecard h1{font-size:48px}.gatecard form{grid-template-columns:1fr auto;align-items:end}#authstatus{min-height:24px;color:#825123}body.locked nav{visibility:hidden}@media(max-width:650px){#gate{padding:45px 20px}.gatecard form{grid-template-columns:1fr}}
 
 .viewtabs{display:flex;gap:8px;margin-bottom:15px}.viewtabs button.active{background:#183c37;color:white}.productimage{width:76px;height:76px;object-fit:contain;background:#f6f7f2;border-radius:5px}.noimage{display:inline-block;width:76px;font-size:11px;color:#708075}td:first-child{min-width:95px}td:nth-child(2){min-width:220px;white-space:normal}td:nth-child(3){white-space:nowrap;font-weight:bold}@media(max-width:650px){.productimage{width:58px;height:58px}td:first-child{min-width:70px}}
+
+.productlink.secondary{display:block;margin-top:7px;font-size:11px;opacity:.85}
