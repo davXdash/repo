@@ -9,6 +9,10 @@ on:
         description: 'Weitere Google-Sheets-Links (optional, durch Leerzeichen oder Zeilenumbrüche getrennt)'
         required: false
         type: string
+      source_id:
+        description: 'Optional: nur eine Quell-ID erneut einlesen'
+        required: false
+        type: string
 permissions:
   contents: write
   pages: write
@@ -42,7 +46,8 @@ jobs:
         if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         env:
           SHEET_LINKS: ${{ inputs.sheet_links }}
-        run: python tools/import_sheets.py --links "$SHEET_LINKS"
+          ONLY_SOURCE: ${{ inputs.source_id || (contains(github.event.head_commit.message, 'W2C product names') && '14') || '' }}
+        run: python tools/import_sheets.py --links "$SHEET_LINKS" --only-source "$ONLY_SOURCE"
       - name: Aktuellen Importbericht anzeigen
         if: always()
         run: cat dist/imports/index.json
