@@ -22,22 +22,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         with:
           python-version: '3.12'
       - name: Import-Abhängigkeiten installieren
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         run: pip install -r tools/requirements.txt
       - name: Importer prüfen
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         run: python tools/test_import_sheets.py
       - name: Sheets importieren
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         env:
           SHEET_LINKS: ${{ inputs.sheet_links }}
         run: python tools/import_sheets.py --links "$SHEET_LINKS"
+      - name: Aktuellen Importbericht anzeigen
+        if: always()
+        run: cat dist/imports/index.json
       - name: Aktualisierte Sammlung speichern
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
