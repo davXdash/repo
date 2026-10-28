@@ -46,7 +46,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         env:
           SHEET_LINKS: ${{ inputs.sheet_links }}
-          ONLY_SOURCE: ${{ inputs.source_id || (contains(github.event.head_commit.message, 'W2C product names') && '14') || '' }}
+          ONLY_SOURCE: ${{ inputs.source_id || (contains(github.event.head_commit.message, 'W2C product names') && '14') || (contains(github.event.head_commit.message, 'Jfinds watch images') && '9') || '' }}
         run: python tools/import_sheets.py --links "$SHEET_LINKS" --only-source "$ONLY_SOURCE"
       - name: Aktuellen Importbericht anzeigen
         if: always()
