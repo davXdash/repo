@@ -33,6 +33,10 @@ class CatalogImportTests(unittest.TestCase):
   products,_=parse_html_sheet(html,{'id':'14','url':'https://docs.google.com/spreadsheets/d/test/edit'},'1')
   self.assertEqual(len(products),2)
   for p in products:self.assertEqual(p['name'],'New Balance 9060');self.assertEqual(p['euro'],51.54);self.assertEqual(p['image'],'https://example.com/shoe.jpg')
+ def test_watch_image_after_four_price_columns(self):
+  html='<table><tr><td>Cartier Santos</td><td><a href="https://weidian.com/item.html?itemID=123">LINK</a></td><td>¥600</td><td>$81</td><td>78 €</td><td>£70</td><td><img src="https://example.com/watch.jpg"></td></tr></table>'
+  products,_=parse_html_sheet(html,{'id':'9','url':'https://docs.google.com/spreadsheets/d/test/edit'},'1')
+  self.assertEqual(products[0]['image'],'https://example.com/watch.jpg');self.assertEqual(products[0]['euro'],78)
  def test_number_formats(self):
   self.assertEqual(number_value('1,250.00'),1250);self.assertEqual(number_value('1.250,00'),1250);self.assertEqual(number_value('32,98'),32.98)
 if __name__=='__main__':unittest.main()
