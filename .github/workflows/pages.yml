@@ -27,6 +27,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - name: Galerie, Hauls und Synchronisierung prüfen
+        run: |
+          node --check dist/app.js
+          node --check dist/sync.js
+          node tools/test_catalog_model.cjs
+          node tools/test_sync.cjs
+          node tools/test_sync_integration.cjs
       - uses: actions/setup-python@v5
         if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'Repair image cache')
         with:
