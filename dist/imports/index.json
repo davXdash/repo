@@ -187,14 +187,14 @@
       "source": "W2CFinds",
       "id": "14",
       "status": "ok",
-      "products": 3023,
+      "products": 2925,
       "unmatched_links": 23,
       "missing_prices": 48,
       "missing_images": 0,
       "conflicting_prices": 0,
       "sheets_failed": 0,
-      "cached_images": 2837,
-      "uncached_images": 186
+      "cached_images": 2765,
+      "uncached_images": 160
     }
   ],
   "rates": {
@@ -231,5 +231,5 @@
       "ZAR": 18.5633
     }
   },
-  "updated": "2026-10-28T12:28:32.517910+00:00"
+  "updated": "2026-10-28T12:40:26.319959+00:00"
 }
