@@ -5,6 +5,8 @@ Persönlicher Katalog auf **GitHub Pages**, mit zwei Ansichten:
 - **Alles:** alle vom Importer erkannten Produkte.
 - **Meine Auswahl:** deine Marken und Modelle – Autry, Axel Arigato, AMI, Nike P-6000, alle erkannten Spezial und Campus, Golden Goose (auch GGS/GGDB), Birkenstock und die bisherigen Suchgruppen.
 
+Filter nach Marke/Modell, ursprünglicher Quellliste und Webseite des Produktlinks (z. B. USFans, Litbuy, KakoBuy) sind kombinierbar. Jeder importierte Eintrag enthält einen Rücklink zum betreffenden Original-Tabellenblatt.
+
 ## Neue Sheets importieren
 1. Im Repository **Actions → Sheets importieren und Pages veröffentlichen → Run workflow** öffnen.
 2. Weitere Google-Sheets-Links in `sheet_links` einfügen. Ohne Eingabe werden die vorhandenen Links erneut eingelesen.
