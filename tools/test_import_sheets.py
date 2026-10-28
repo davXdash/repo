@@ -25,6 +25,9 @@ class CatalogImportTests(unittest.TestCase):
   products,_=parse_html_sheet(html,{'id':'x','url':'https://docs.google.com/spreadsheets/d/test/edit'},'1')
   self.assertEqual(products[0]['originalUrl'],original)
   self.assertIn('productLink=https%253A',products[0]['url'])
+ def test_currency_cells_are_not_product_names(self):
+  from import_sheets import product_name
+  self.assertFalse(product_name('EUR 43.60'));self.assertFalse(product_name('27.00 €'));self.assertTrue(product_name('Nike P6000'))
  def test_number_formats(self):
   self.assertEqual(number_value('1,250.00'),1250);self.assertEqual(number_value('1.250,00'),1250);self.assertEqual(number_value('32,98'),32.98)
 if __name__=='__main__':unittest.main()
