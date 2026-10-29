@@ -32,6 +32,7 @@ jobs:
           node --check dist/app.js
           node --check dist/sync.js
           node tools/test_catalog_model.cjs
+          node tools/test_agents.cjs
           node tools/test_sync.cjs
           node tools/test_sync_integration.cjs
       - uses: actions/setup-python@v5
